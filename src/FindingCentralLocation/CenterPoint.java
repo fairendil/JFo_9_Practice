@@ -2,7 +2,6 @@ package FindingCentralLocation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -11,8 +10,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class CenterPoint {
-    private static final ArrayList<CenterPoint> allPoints = new ArrayList();
-    private boolean isBuildings = true;
+    public static final ArrayList<CenterPoint> allPoints = new ArrayList();
+    public boolean isBuildings = true;
     Dorm[] dorms;
     public int xLocation;
     public int yLocation;
@@ -45,15 +44,15 @@ public class CenterPoint {
         dropShadow.setColor(Color.BLACK);
         this.display.setEffect(dropShadow);
         this.display.setFont(Font.font("Default", FontWeight.BOLD, 16.0D));
-        FindingCentaralLocation.root.getChildren().addAll(new Node[]{this.point, this.display});
+        FindingCentralLocation.root.getChildren().addAll(this.point, this.display);
         allPoints.add(this);
         this.calculateCenter();
         this.updateDrawing();
     }
 
     public void updateDrawing() {
-        this.point.setCenterX((double) this.xLocation);
-        this.point.setCenterY((double) this.yLocation);
+        this.point.setCenterX(this.xLocation);
+        this.point.setCenterY(this.yLocation);
         this.point.setRadius(10.0D);
         this.point.setFill(this.fillColor);
         this.point.setStroke(this.outlineColor);
@@ -93,11 +92,8 @@ public class CenterPoint {
     private void calculatePeopleCenter() {
         int xWeight = 0;
         int yWeight = 0;
-        Dorm[] var3 = this.dorms;
-        int var4 = var3.length;
 
-        for (int var5 = 0; var5 < var4; ++var5) {
-            Dorm dorm = var3[var5];
+        for (Dorm dorm : this.dorms) {
             xWeight += dorm.xLocation;
             yWeight += dorm.yLocation;
         }
@@ -107,7 +103,7 @@ public class CenterPoint {
     }
 
     private int calculateDistance(Dorm dorm) {
-        return (int) Math.sqrt(Math.pow((double) (dorm.xLocation - this.xLocation), 2.0D) + Math.pow((double) (dorm.yLocation - this.yLocation), 2.0D));
+        return (int) Math.sqrt(Math.pow((dorm.xLocation - this.xLocation), 2.0D) + Math.pow((dorm.yLocation - this.yLocation), 2.0D));
     }
 
     public static final void updateAllPoint() {

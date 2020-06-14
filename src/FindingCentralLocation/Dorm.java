@@ -16,7 +16,7 @@ public class Dorm {
     public int xLocation;
     public int yLocation;
     public int population;
-    public String text;
+    public String name;
     private Double iconGrabPosition = new Double(0.0D, 0.0D);
     private Double mouseGrabPosition = new Double(0.0D, 0.0D);
     private Double mouseReleasePosition = new Double(0.0D, 0.0D);
@@ -41,7 +41,7 @@ public class Dorm {
         this.xLocation = x;
         this.yLocation = y;
         this.population = population;
-        this.text = name;
+        this.name = name;
         this.fillColor = color;
         this.display.setFill(Color.RED);
         DropShadow dropShadow = new DropShadow();
@@ -50,7 +50,7 @@ public class Dorm {
         dropShadow.setColor(Color.BLACK);
         this.display.setEffect(dropShadow);
         this.display.setFont(Font.font("Default", FontWeight.BOLD, 16.0D));
-        FindingCentaralLocation.root.getChildren().addAll(new Node[]{this.dormRect, this.display});
+        FindingCentralLocation.root.getChildren().addAll(new Node[]{this.dormRect, this.display});
         this.interactions();
         this.updateDrawing();
     }
@@ -62,7 +62,7 @@ public class Dorm {
         this.dormRect.setLayoutY((double)this.yLocation - this.dormRect.getHeight() / 2.0D);
         this.dormRect.setFill(this.fillColor);
         this.dormRect.setStroke(this.outlineColor);
-        this.display.setText(this.text + ":\n" + this.population);
+        this.display.setText(this.name + ":\n" + this.population);
         this.display.setLayoutX(this.dormRect.getLayoutX() - 40.0D);
         this.display.setLayoutY(this.dormRect.getLayoutY() + this.dormRect.getHeight() + 15.0D);
         this.display.setTextAlignment(TextAlignment.CENTER);
@@ -98,7 +98,7 @@ public class Dorm {
                 this.popChanger = new PopulationChanger(this.population);
                 this.popChanger.getScrollBar().setLayoutX(this.dormRect.getLayoutX());
                 this.popChanger.getScrollBar().setLayoutY(this.dormRect.getLayoutY() + this.dormRect.getHeight() + 40.0D);
-                FindingCentaralLocation.root.getChildren().add(this.popChanger.getScrollBar());
+                FindingCentralLocation.root.getChildren().add(this.popChanger.getScrollBar());
             }
 
         });
@@ -120,7 +120,7 @@ public class Dorm {
         this.display.setOnMouseReleased((me) -> {
             this.popChanger.getScrollBar().toBack();
             if (this.popChanger != null) {
-                FindingCentaralLocation.root.getChildren().remove(this.popChanger.getScrollBar());
+                FindingCentralLocation.root.getChildren().remove(this.popChanger.getScrollBar());
                 this.popChanger = null;
             }
 
