@@ -91,6 +91,9 @@ public class Dorm {
             this.updateDrawing();
             CenterPoint.updateAllPoint();
         });
+        this.dormRect.setOnMouseReleased((me) -> {
+            CenterPoint.updateAllPointDistanceTarget(this);
+        });
         this.display.setOnMousePressed((me) -> {
             if (this.popChanger == null) {
                 this.mouseGrabPosition.x = me.getSceneX();

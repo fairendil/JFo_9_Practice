@@ -17,6 +17,7 @@ public class CenterPoint {
     public int yLocation;
     public String text;
     private int distance;
+    private int distanceTarget = 0;
     public Circle point = new Circle();
     public Color fillColor;
     public Color outlineColor;
@@ -68,7 +69,7 @@ public class CenterPoint {
             this.calculatePeopleCenter();
         }
 
-        this.distance = this.calculateDistance(this.dorms[0]);
+        this.distance = this.calculateDistance(this.dorms[this.distanceTarget]);
     }
 
     private void calculateDormCenter() {
@@ -112,6 +113,21 @@ public class CenterPoint {
             point.updateDrawing();
             point.point.toFront();
             point.display.toFront();
+        }
+    }
+
+    public static final void updateAllPointDistanceTarget(Dorm dorm) {
+        Iterator var0 = allPoints.iterator();
+
+        while (var0.hasNext()) {
+            CenterPoint point = (CenterPoint) var0.next();
+            if (java.util.Arrays.asList(point.dorms).contains(dorm)) {
+                point.distanceTarget = java.util.Arrays.asList(point.dorms).indexOf(dorm);
+                point.calculateCenter();
+                point.updateDrawing();
+                point.point.toFront();
+                point.display.toFront();
+            }
         }
     }
 }
