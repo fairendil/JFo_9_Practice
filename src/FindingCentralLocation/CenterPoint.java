@@ -75,11 +75,8 @@ public class CenterPoint {
         int pop = 0;
         int xWeight = 0;
         int yWeight = 0;
-        Dorm[] var4 = this.dorms;
-        int var5 = var4.length;
 
-        for (int var6 = 0; var6 < var5; ++var6) {
-            Dorm dorm = var4[var6];
+        for (Dorm dorm : this.dorms) {
             xWeight += dorm.xLocation * dorm.population;
             yWeight += dorm.yLocation * dorm.population;
             pop += dorm.population;

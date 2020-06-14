@@ -22,8 +22,18 @@ public class FindingCentralLocation extends Application {
 
     public void start(Stage primaryStage) {
 
+        Properties properties = new Properties();
         double width = 800.0D;
         double height = 650.0D;
+        try {
+            InputStream in = new FileInputStream(new File( "stageConfigFile.properties"));
+            properties.load(in);
+            width = Double.parseDouble(properties.getProperty("width"));
+            height = Double.parseDouble(properties.getProperty("height"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Scene scene = new Scene(root, width, height, Color.WHITE);
         primaryStage.setTitle("Campus");
         primaryStage.setScene(scene);
@@ -83,13 +93,32 @@ public class FindingCentralLocation extends Application {
         }
 
         new CenterPoint("All Dorms", true, dorms);
-        new CenterPoint("Study Group", false, dorms[0], dorms[1], dorms[3]);
+        new CenterPoint("Study Group", false, dorms[0], dorms[0], dorms[2], dorms[2],dorms[2], dorms[2], dorms[3]);
         launch(args);
     }
 
     public static void ClosingHandler(WindowEvent event){
 
-        Properties properties;
+        Properties properties =new Properties();
+
+        Window window = (Window) event.getSource();
+        if (window == null) {
+            return;
+        }
+
+        var width = window.getWidth();
+        var height = window.getHeight();
+        properties.setProperty("width", String.valueOf(width));
+        properties.setProperty("height", String.valueOf(height));
+
+        var stageConfigFile = new File("stageConfigFile.properties");
+        try {
+            stageConfigFile.createNewFile();
+            WriteProperties(properties, stageConfigFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         for (CenterPoint centerPoint: CenterPoint.allPoints){
             if (centerPoint.isBuildings){
                 properties = new Properties();
